@@ -8,4 +8,4 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-Обратите внимание что отправка сообщений по интервалу проводится через другой сервис ```gglobal-scheduler``` 
+Обратите внимание что отправка сообщений по интервалу проводится через другой сервис (https://github.com/ArsenalNox/gglobal_scheduler)[gglobal-scheduler]
