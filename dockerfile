@@ -4,6 +4,6 @@ COPY req.txt req.txt
 RUN pip install -r req.txt
 RUN pip install --no-cache-dir --upgrade -r req.txt
 
-EXPOSE 8000
+EXPOSE 8080
 COPY . .
-CMD ["python3", "main.py"]
+CMD ["python3", "app/main.py"]
