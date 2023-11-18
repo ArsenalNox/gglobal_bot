@@ -98,7 +98,7 @@ async def unsubscribe_handler(message: types.Message):
     Хандлер отписки
     """
     
-    request = requests.get(f"http://{getenv('SCHEDULER_HOS')}:8081/remove_timer/{message.from_user.id}")
+    request = requests.get(f"http://{getenv('SCHEDULER_HOST')}:8081/remove_timer/{message.from_user.id}")
     remove_stm = Mailing.remove_mailing(User.get_or_create(message.from_user.id).id)
 
     if '200' in request.text and remove_stm:
