@@ -12,6 +12,7 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.exceptions import TelegramRetryAfter
 
 from kb import main_menu_markup, interval_select_markup, back_to_interval_selection, interval_select_markup_has_mailing
 from models import User, Mailing, Course, engine
@@ -97,7 +98,7 @@ async def unsubscribe_handler(message: types.Message):
     Хандлер отписки
     """
     
-    request = requests.get(f"http://localhost:8081/remove_timer/{message.from_user.id}")
+    request = requests.get(f"http://{getenv('SCHEDULER_HOS')}:8081/remove_timer/{message.from_user.id}")
     remove_stm = Mailing.remove_mailing(User.get_or_create(message.from_user.id).id)
 
     if '200' in request.text and remove_stm:
@@ -124,3 +125,8 @@ async def course_history_handler(message: types.Message):
     courses = '\n'.join(courses)
 
     await message.answer(f"Ваши последние запросы:\n{courses}")
+
+
+@router.error()
+async def error_handler(event: types.ErrorEvent):
+    pass

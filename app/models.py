@@ -122,7 +122,7 @@ class Mailing(Base):
 
         req_hours = f"H:{found_hours[0]}" if len(found_hours) > 0 else ''
         req_minutes = f"M:{found_minutes[0]}" if len(found_minutes) > 0 else ''
-        request = requests.get(f"http://localhost:8081/add_timer/{user.telegram_id}/{req_hours}{req_minutes}")
+        request = requests.get(f"http://{getenv('SCHEDULER_HOST')}:8081/add_timer/{user.telegram_id}/{req_hours}{req_minutes}")
 
         if not '200' in request.text:
             False, "Не удалось создать интервал", None
